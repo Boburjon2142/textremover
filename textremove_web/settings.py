@@ -1,7 +1,15 @@
 ﻿import os
 from pathlib import Path
 
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+if load_dotenv:
+    load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = "dev-secret-key-change-me"
 DEBUG = os.getenv("DJANGO_DEBUG", "1") == "1"
@@ -68,4 +76,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 DEFAULT_REMOVE_WORDS = []
 
-CSRF_TRUSTED_ORIGINS = os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "https://sinov3.pythonanywhere.com,http://127.0.0.1:8000,http://localhost:8000").split(",")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+OPENAI_TIMEOUT = int(os.getenv("OPENAI_TIMEOUT", "30"))
+OPENAI_SYSTEM_PROMPT = os.getenv(
+    "OPENAI_SYSTEM_PROMPT",
+    "Analyze the user's text and respond in Uzbek with a concise, helpful summary.",
+)
+
+CSRF_TRUSTED_ORIGINS = os.getenv(
+    "DJANGO_CSRF_TRUSTED_ORIGINS",
+    "https://sinov3.pythonanywhere.com,http://127.0.0.1:8000,http://localhost:8000",
+).split(",")

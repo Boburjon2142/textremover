@@ -32,6 +32,7 @@
       <section class="card">
         <h2>Text processing</h2>
         <p class="muted">Phrases are managed in the Django admin panel.</p>
+        {% if error %}<div class="notice error">{{ error }}</div>{% endif %}
         <form method="post">
           {% csrf_token %}
           <div class="grid two">
@@ -44,7 +45,7 @@
               <textarea rows="8" readonly>{{ result_text }}</textarea>
             </label>
           </div>
-          <button type="submit">Remove phrases</button>
+          <button type="submit">Analyze text</button>
         </form>
       </section>
     </main>
