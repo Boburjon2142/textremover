@@ -3,8 +3,8 @@
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "dev-secret-key-change-me"
-DEBUG = True
-ALLOWED_HOSTS = ["*"]
+DEBUG = False
+ALLOWED_HOSTS = ["sinov3.pythonanywhere.com"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -60,8 +60,13 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 DEFAULT_REMOVE_WORDS = []
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://sinov3.pythonanywhere.com",
+]
