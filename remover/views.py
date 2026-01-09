@@ -1,7 +1,7 @@
 import re
 
 from django.shortcuts import render
-from .models import RemoveWord
+from .models import AccessLog, RemoveWord
 
 
 def build_phrase_pattern(phrase):
@@ -40,5 +40,17 @@ def index(request):
         result = remove_words(text, words)
         context["input_text"] = text
         context["result_text"] = result
+        ip_address = request.META.get("HTTP_X_FORWARDED_FOR", "")
+        if ip_address:
+            ip_address = ip_address.split(",")[0].strip()
+        else:
+            ip_address = request.META.get("REMOTE_ADDR", "")
+        user_agent = request.META.get("HTTP_USER_AGENT", "")
+        AccessLog.objects.create(
+            ip_address=ip_address,
+            user_agent=user_agent[:300],
+            input_length=len(text),
+            output_length=len(result),
+        )
 
     return render(request, "index.html", context)
