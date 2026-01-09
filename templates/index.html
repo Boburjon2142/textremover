@@ -13,11 +13,11 @@
         <div>
           <p class="eyebrow">Admin defined cutout</p>
           <h1>Text Remove Studio</h1>
-          <p class="subhead">Send text, remove the configured words, and get a clean output.</p>
+          <p class="subhead">Send text, remove the configured phrases, and get a clean output.</p>
         </div>
         <div class="status">
           <div>
-            <span class="label">Words to remove</span>
+            <span class="label">Phrases to remove</span>
             <span class="value">
               {% if words %}
                 {{ words|join:", " }}
@@ -31,7 +31,7 @@
 
       <section class="card">
         <h2>Text processing</h2>
-        <p class="muted">Words are managed in the Django admin panel.</p>
+        <p class="muted">Phrases are managed in the Django admin panel.</p>
         <form method="post">
           {% csrf_token %}
           <div class="grid two">
@@ -44,7 +44,7 @@
               <textarea rows="8" readonly>{{ result_text }}</textarea>
             </label>
           </div>
-          <button type="submit">Remove words</button>
+          <button type="submit">Remove phrases</button>
         </form>
       </section>
     </main>

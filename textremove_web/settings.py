@@ -1,10 +1,11 @@
-﻿from pathlib import Path
+﻿import os
+from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "dev-secret-key-change-me"
-DEBUG = False
-ALLOWED_HOSTS = ["sinov3.pythonanywhere.com"]
+DEBUG = os.getenv("DJANGO_DEBUG", "1") == "1"
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "sinov3.pythonanywhere.com,127.0.0.1,localhost").split(",")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -67,6 +68,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 DEFAULT_REMOVE_WORDS = []
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://sinov3.pythonanywhere.com",
-]
+CSRF_TRUSTED_ORIGINS = os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "https://sinov3.pythonanywhere.com,http://127.0.0.1:8000,http://localhost:8000").split(",")
